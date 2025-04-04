@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="utf-8" />
+<title>Calculadora Diagnostico</title>
+<style>
+ 
+ body {
+   
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background-color: #f1e8e8;
+    }
+
+  
+    table {
+        margin: auto;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+   
+    .pantalla {
+        width: 20%;
+        height: 60px;
+        font-size: 30px;
+        text-align: right;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+    }
+
+    
+    td {
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        user-select: none;
+        border: none;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    
+    td:not(:last-child) {
+        background-color: #4285F4;
+        color: white;
+    }
+
+
+    td:last-child {
+        background-color: #34A853;
+        color: white;
+    }
+
+   
+    tr:last-child td:nth-child(3) {
+    background-color: #F4B400;
+    color: white;
+}
+
+   
+    .borrar {
+        width: 20%;
+        background-color: red;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+   
+    td:hover,
+    .borrar:hover {
+        opacity: 0.8;
+    }
+
+    
+</style>
+</head>
+
+<body>
+
+ <input type="text" class="pantalla" value="0" readonly>
+
+ <table>   
+  <tr>  <td>7</td> <td>8</td> <td>9</td> <td>+</td>  </tr>
+  <tr>  <td>4</td> <td>5</td> <td>6</td> <td>-</td>  </tr>
+  <tr>  <td>1</td> <td>2</td> <td>3</td> <td>*</td>  </tr>
+  <tr>  <td>0</td> <td>.</td> <td>=</td> <td>/</td>  </tr>
+ </table>
+   
+ <button class="borrar">Borrar</button>
+
+</body>
+
+<script>
+
+const pantalla = document.querySelector('.pantalla');
+    const botones = document.querySelectorAll('td');
+    const botonBorrar = document.querySelector('.borrar');
+
+    let operacion = "";
+
+    
+    botones.forEach(boton => {
+        boton.addEventListener('click', () => {
+            const valor = boton.textContent;
+
+            if (valor === '=') {
+                try {
+                    operacion = eval(operacion); 
+                    pantalla.value = operacion;
+                } catch {
+                    pantalla.value = 'Error';
+                }
+            } else {
+                operacion += valor;
+                pantalla.value = operacion;
+            }
+        });
+    });
+
+   
+    botonBorrar.addEventListener('click', () => {
+        operacion = "";
+        pantalla.value = "0";
+    });
+
+</script>
+
+</html>

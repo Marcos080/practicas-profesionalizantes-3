@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Calculadora</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f1e8e8;
+        }
+
+        .contenedor {
+            display: inline-block;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .pantalla {
+            width: 100%;
+            height: 60px;
+            font-size: 30px;
+            text-align: right;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 25%;
+            height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            user-select: none;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        td:not(:last-child) {
+            background-color: #4285F4;
+            color: white;
+        }
+
+        td:last-child {
+            background-color: #34A853;
+            color: white;
+        }
+
+        tr:last-child td:nth-child(3) {
+            background-color: #F4B400;
+            color: white;
+        }
+
+        .borrar {
+            width: 100%;
+            background-color: red;
+            color: white;
+            font-size: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+
+        td:hover,
+        .borrar:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+        <input type="text" id="pantalla" class="pantalla" value="0" readonly>
+
+        <table>
+            <tr>
+                <td id="btn7" onclick="onButton7Click()">7</td> 
+                <td id="btn8" onclick="onButton8Click()">8</td> 
+                <td id="btn9" onclick="onButton9Click()">9</td> 
+                <td id="btnSuma" onclick="onButtonSumaClick()">+</td>
+            </tr>
+            <tr>
+                <td id="btn4" onclick="onButton4Click()">4</td> 
+                <td id="btn5" onclick="onButton5Click()">5</td> 
+                <td id="btn6" onclick="onButton6Click()">6</td> 
+                <td id="btnResta" onclick="onButtonRestaClick()">-</td>
+            </tr>
+            <tr>
+                <td id="btn1" onclick="onButton1Click()">1</td> 
+                <td id="btn2" onclick="onButton2Click()">2</td> 
+                <td id="btn3" onclick="onButton3Click()">3</td> 
+                <td id="btnMultiplicacion" onclick="onButtonMultiplicacionClick()">*</td>
+            </tr>
+            <tr>
+                <td id="btn0" onclick="onButton0Click()">0</td> 
+                <td id="btnPunto" onclick="onButtonPuntoClick()">.</td> 
+                <td id="btnIgual" onclick="onButtonIgualClick()">=</td> 
+                <td id="btnDivision" onclick="onButtonDivisionClick()">/</td>
+            </tr>
+        </table>
+
+        <button id="btnBorrar" class="borrar" onclick="onButtonBorrarClick()">Borrar</button>
+    </div>
+
+</body>
+
+<script>
+    let pantalla = document.getElementById('pantalla');
+    let operacion = "";
+
+    function onButton7Click() { operacion += "7"; pantalla.value = operacion; }
+    function onButton8Click() { operacion += "8"; pantalla.value = operacion; }
+    function onButton9Click() { operacion += "9"; pantalla.value = operacion; }
+    function onButton4Click() { operacion += "4"; pantalla.value = operacion; }
+    function onButton5Click() { operacion += "5"; pantalla.value = operacion; }
+    function onButton6Click() { operacion += "6"; pantalla.value = operacion; }
+    function onButton1Click() { operacion += "1"; pantalla.value = operacion; }
+    function onButton2Click() { operacion += "2"; pantalla.value = operacion; }
+    function onButton3Click() { operacion += "3"; pantalla.value = operacion; }
+    function onButton0Click() { operacion += "0"; pantalla.value = operacion; }
+    function onButtonPuntoClick() { operacion += "."; pantalla.value = operacion; }
+
+    function onButtonSumaClick() { operacion += "+"; pantalla.value = operacion; }
+    function onButtonRestaClick() { operacion += "-"; pantalla.value = operacion; }
+    function onButtonMultiplicacionClick() { operacion += "*"; pantalla.value = operacion; }
+    function onButtonDivisionClick() { operacion += "/"; pantalla.value = operacion; }
+
+    function onButtonIgualClick() {
+        try {
+            operacion = eval(operacion);
+            pantalla.value = operacion;
+        } catch {
+            pantalla.value = "Error";
+        }
+    }
+
+    function onButtonBorrarClick() {
+        operacion = "";
+        pantalla.value = "0";
+    }
+</script>
+
+</html>
