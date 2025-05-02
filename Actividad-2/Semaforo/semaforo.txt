@@ -1,0 +1,16 @@
+Variables:
+
+Nombre   	 Tipo	         Descripción
+
+color   	string      	Estado del semáforo: "rojo", "amarillo", "verde"
+activo  	bool         	true si el semáforo está funcionando
+tiempo  	int          	Tiempo en segundos del color actual
+
+
+Funciones:
+
+Nombre         	Parámetros   	Descripción
+
+cambiarColor()   	—	    Cambia el color al siguiente en el ciclo
+mostrarEstado()	    —    	Devuelve el color actual y si está activo
+reiniciar()     	—   	Reinicia el semáforo al color "rojo"

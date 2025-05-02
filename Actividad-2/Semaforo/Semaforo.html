@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Semáforo</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+    }
+
+    .semaforo {
+      width: 100px;
+      background-color: #333;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .luz {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background-color: #111;
+      opacity: 0.2;
+      transition: opacity 0.3s ease;
+    }
+
+    .rojo.activo { background-color: red; opacity: 1; }
+    .amarillo.activo { background-color: yellow; opacity: 1; }
+    .verde.activo { background-color: green; opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="semaforo">
+    <div class="luz rojo" id="rojo"></div>
+    <div class="luz amarillo" id="amarillo"></div>
+    <div class="luz verde" id="verde"></div>
+  </div>
+
+  <script>
+    let color = "rojo";
+    let activo = true;
+    let tiempo = 0;
+
+    const luces = {
+      rojo: document.getElementById("rojo"),
+      amarillo: document.getElementById("amarillo"),
+      verde: document.getElementById("verde")
+    };
+
+    function cambiarColor() {
+      if (!activo) return;
+
+      if (color === "rojo") {
+        color = "amarillo";
+        tiempo = 5000;
+      } else if (color === "amarillo") {
+        color = "verde";
+        tiempo = 2000;
+      } else {
+        color = "rojo";
+        tiempo = 4000;
+      }
+
+      actualizarSemaforo();
+    }
+
+    function actualizarSemaforo() {
+      for (let c in luces) {
+        luces[c].classList.remove("activo");
+      }
+      luces[color].classList.add("activo");
+
+      setTimeout(cambiarColor, tiempo);
+    }
+
+    function mostrarEstado() {
+      return { color, activo };
+    }
+
+    function reiniciar() {
+      color = "rojo";
+      tiempo = 4000;
+      actualizarSemaforo();
+    }
+
+  
+    reiniciar();
+  </script>
+</body>
+</html>

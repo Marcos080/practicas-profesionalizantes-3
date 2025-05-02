@@ -1,0 +1,12 @@
+ Atributo     |          Tipo                  |      Descripción                                 
+
+marca                  string            Marca del fabricante (ej: HP, Brother, Epson)     
+modelo                 string            Modelo específico (ej: HL-1212W)                  
+tecnología             string            "Láser monocromática"                             
+velocidadImpresion     string            Páginas por minuto (ej: "20 ppm")                 
+resolucion             string            Calidad máxima de impresión (ej: "600 x 600 dpi") 
+conectividad           string            Tipos de conexión (USB, WiFi)                     
+precio                 float             Precio en moneda local                           
+stockDisponible        int               Cantidad disponible en inventario                 
+descripcion            string            Texto breve promocional del producto              
+garantia               string            Tiempo de garantía (ej: "12 meses")               

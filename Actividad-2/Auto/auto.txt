@@ -1,0 +1,17 @@
+Variables:
+
+Nombre        	Tipo	           Descripción
+encendido    	bool	       true si el auto está encendido
+velocidad	    int	           Velocidad actual del auto (en km/h)
+combustible	    float	       Cantidad de combustible (en litros)
+
+
+Funciones:
+
+Nombre       	Parámetros      	Descripción
+encender()       	 —         	Cambia el estado a encendido
+apagar()           	 —        	Cambia el estado a apagado
+acelerar(valor)     int	        Aumenta la velocidad
+frenar(valor)   	int	        Disminuye la velocidad
+repostar(litros)	float	    Suma combustible al tanque
+estado()         	 —	        Muestra los valores actuales del auto

@@ -1,0 +1,24 @@
+
+ Nombre               Tipo   Descripción                                    
+
+ encendido            bool   `true` si el helicóptero está encendido        
+ vida                 int    Nivel de vida del helicóptero (0 a 100)        
+ combustible          float  Cantidad de combustible (0.0 a 100.0 %)        
+ municionMisiles      int    Cantidad de misiles disponibles                
+ municionBalas        int    Cantidad de balas de ametralladora disponibles 
+ posicionX            float  Posición en el eje X del mapa                  
+ posicionY            float  Posición en el eje Y del mapa                  
+ objetivosRescatados  int    Cantidad de objetivos rescatados               
+
+
+ Nombre                 Parámetros    Descripción                                    
+
+ encender()             —             Cambia el estado a encendido                   
+ apagar()               —             Cambia el estado a apagado                     
+ mover(dx, dy)          float, float  Desplaza el helicóptero en el mapa             
+ dispararMisil()        —             Dispara un misil (si hay munición)             
+ dispararBalas()        —             Dispara ráfagas de ametralladora               
+ recibirDaño(valor)     int           Resta puntos de vida según el daño recibido    
+ recargarCombustible()  —             Rellena el combustible al máximo               
+ rescatar()             —             Incrementa la cantidad de objetivos rescatados 
+ estado()               —             Muestra los valores actuales del helicóptero   

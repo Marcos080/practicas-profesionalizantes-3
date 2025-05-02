@@ -1,0 +1,15 @@
+ Variable    | Tipo            | Descripción                        
+
+ encendida      bool               Estado actual (encendida/apagada)     
+ nivelToner     int                Porcentaje de tóner restante (0 a 100) 
+ cantidadPapel  int                Hojas disponibles                      
+ modelo         string             Modelo del dispositivo                 
+ colaImpresion  vector<Documento>  Documentos en espera                   
+
+ Método            | Parámetros  | Descripción                              
+                                            
+ estado()                                   Devuelve si está encendida o no                                              
+ agregarDocumento()   Documento doc         Añade un documento a la cola de impresión    
+ imprimir()                                 Imprime el primer documento si hay recursos  
+ estadoConsumibles()                        Muestra el nivel de tóner y papel disponible 
+            

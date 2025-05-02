@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spray</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #eee;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+
+    .spray-visual {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .bottle {
+      width: 100px;
+      height: 200px;
+      background-color: rgba(150, 150, 150, 0.2);
+      border: 3px solid #999;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    .nozzle {
+      position: absolute;
+      width: 60px;
+      height: 40px;
+      background-color: green;
+      border-radius: 5px;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .spray-line {
+      position: absolute;
+      width: 100px;
+      height: 4px;
+      background-color: lightblue;
+      top: 20px;
+      left: 100%;
+      display: none;
+    }
+
+    .controls {
+      flex: 1;
+      background-color: white;
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .controls h3 {
+      margin-top: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 5px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+    }
+
+    progress {
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spray-visual">
+      <div class="bottle">
+        <div class="nozzle">
+          <div class="spray-line" id="sprayLine"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <h3>Spray Controls</h3>
+      <table>
+        <tr>
+          <td>Capacity</td>
+          <td><input id="capacity" type="text"></td>
+        </tr>
+        <tr>
+          <td>Volume</td>
+          <td><progress id="volume">0%</progress></td>
+        </tr>
+        <tr>
+          <td>SprayedVolume</td>
+          <td><input id="sprayedVolume" type="text"></td>
+        </tr>
+      </table>
+      <button id="sprayBtn">Spray</button>
+      <button id="chargeBtn">Charge</button>
+      <button id="emptyBtn">Empty</button>
+    </div>
+  </div>
+
+  <script>
+    function getObjectProperties(sprayObject) {
+      return {
+        capacity: sprayObject.capacity,
+        volume: sprayObject.volume,
+        sprayedVolume: sprayObject.sprayedVolume
+      };
+    }
+
+    function updateGUI(sprayDataObject) {
+      let capacityInput = document.getElementById("capacity");
+      let volumeInput = document.getElementById("volume");
+      let sprayedInput = document.getElementById("sprayedVolume");
+
+      capacityInput.value = sprayDataObject.capacity;
+      volumeInput.max = sprayDataObject.capacity;
+      volumeInput.value = sprayDataObject.volume;
+      sprayedInput.value = sprayDataObject.sprayedVolume;
+    }
+
+    function initGUI(sprayObject) {
+      const sprayBtn = document.getElementById('sprayBtn');
+      const chargeBtn = document.getElementById('chargeBtn');
+      const emptyBtn = document.getElementById('emptyBtn');
+      const sprayLine = document.getElementById('sprayLine');
+
+      sprayBtn.onclick = () => {
+        sprayObject.spray();
+        sprayLine.style.display = "block";
+        setTimeout(() => {
+          sprayLine.style.display = "none";
+        }, 300);
+        updateGUI(getObjectProperties(sprayObject));
+      };
+
+      chargeBtn.onclick = () => {
+        let value = prompt('Ingrese cantidad en ML');
+        sprayObject.charge(parseFloat(value));
+        updateGUI(getObjectProperties(sprayObject));
+      };
+
+      emptyBtn.onclick = () => {
+        sprayObject.empty();
+        updateGUI(getObjectProperties(sprayObject));
+      };
+
+      updateGUI(getObjectProperties(sprayObject));
+    }
+
+    class Spray {
+      constructor() {
+        this._capacity = 750.0;
+        this._volume = 0;
+        this._sprayedVolume = 10.0;
+      }
+
+      get volume() {
+        return this._volume;
+      }
+
+      set volume(value) {
+        if (value <= this._capacity && value >= 0) {
+          this._volume = value;
+        } else {
+          console.log('Volume cannot be more than ' + this._capacity + ' or less than 0');
+        }
+      }
+
+      get sprayedVolume() {
+        return this._sprayedVolume;
+      }
+
+      get capacity() {
+        return this._capacity;
+      }
+
+      charge(value) {
+        if (value >= 0) {
+          this._volume = Math.min(this._volume + value, this._capacity);
+        } else {
+          console.log('Value must be greater than 0');
+        }
+      }
+
+      spray() {
+        if (this._volume > 0) {
+          if (this._volume >= this._sprayedVolume) {
+            this._volume -= this._sprayedVolume;
+          } else {
+            this._volume = 0;
+          }
+        } else {
+          console.log('Spray is empty');
+        }
+      }
+
+      empty() {
+        this._volume = 0;
+      }
+    }
+
+    function main() {
+      const sprayObject = new Spray();
+      initGUI(sprayObject);
+    }
+
+    window.onload = main;
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+ventilador
+
+variables | tipo | valor 
+
+encendido    bool   true/false
+potencia    int    x≤3
+
+funciones:
+
+Nombres |       parametros   |     descripcion
+
+estado()           ----           devuelve si esta encendido o apagado
+velocidad()     potencia(int)     devuelve la velocidad (1, 2, 3)
