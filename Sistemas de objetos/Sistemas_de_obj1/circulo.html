@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Círculo en Movimiento</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="canvas" width="600" height="200"></canvas>
+
+<script>
+  let velocidad = 0; 
+  let x = 50;
+  let canvas, context;
+
+  function mover() {
+    x += velocidad;
+    if (x > canvas.width) x = 0;
+    draw();
+  }
+
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.arc(x, 100, 20, 0, Math.PI * 2);
+    context.fillStyle = "blue";
+    context.fill();
+  }
+
+  window.onload = () => {
+    canvas = document.getElementById("canvas");
+    context = canvas.getContext("2d");
+
+    setInterval(mover, 30);
+  };
+
+  window.addEventListener("message", (event) => {
+    const data = event.data;
+    if (data && data.type === "circulo_control") {
+      const estado = data.estado;
+
+      if (estado === "rojo") {
+        velocidad = 0;
+      } else if (estado === "amarillo") {
+        velocidad = 1;
+      } else if (estado === "verde") {
+        velocidad = 4;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Controlador - Semáforo y Círculo</title>
+  <style>
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: 1px solid black;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Semáforo</h2>
+<iframe id="semaforoFrame" src="semaforo-ref3.html"></iframe>
+
+<h2>Círculo</h2>
+<iframe id="circuloFrame" src="circulo.html"></iframe>
+
+<script>
+window.onload = () => {
+    const semaforoFrame = document.getElementById("semaforoFrame").contentWindow;
+    const circuloFrame = document.getElementById("circuloFrame").contentWindow;
+
+    window.addEventListener("message", (event) => {
+        const estado = event.data;
+        if (estado && estado.type === "semaforo_estado") {
+            circuloFrame.postMessage({ type: "circulo_control", estado: estado.color }, "*");
+        }
+    });
+};
+</script>
+
+</body>
+</html>
