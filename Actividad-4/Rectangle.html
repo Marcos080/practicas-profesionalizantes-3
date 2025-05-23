@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto en Canvas</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #eee;
+    }
+
+    canvas {
+      border: 2px solid black;
+      background-color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" width="800" height="600"></canvas>
+
+  <script>
+    class Rectangle {
+      constructor(x, y, width, height, color = 'blue') {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.angle = 0; 
+        this.color = color;
+      }
+
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.restore();
+      }
+
+      moveForward(distance) {
+        this.x += Math.cos(this.angle) * distance;
+        this.y += Math.sin(this.angle) * distance;
+      }
+
+      moveBackward(distance) {
+        this.x -= Math.cos(this.angle) * distance;
+        this.y -= Math.sin(this.angle) * distance;
+      }
+
+      rotate(deltaAngle) {
+        this.angle += deltaAngle;
+      }
+    }
+
+    class RectangleController {
+      constructor(rectangle, canvas, context) {
+        this.rectangle = rectangle;
+        this.canvas = canvas;
+        this.ctx = context;
+
+        window.addEventListener('keydown', this.handleKey.bind(this));
+        this.draw(); 
+      }
+
+      handleKey(event) {
+        const step = 15;
+        const rotationStep = Math.PI / 32;
+
+        switch (event.key) {
+          case "ArrowUp":
+            this.rectangle.moveForward(step);
+            break;
+          case "ArrowDown":
+            this.rectangle.moveBackward(step);
+            break;
+          case "ArrowLeft":
+            this.rectangle.rotate(-rotationStep);
+            break;
+          case "ArrowRight":
+            this.rectangle.rotate(rotationStep);
+            break;
+        }
+
+        this.draw();
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.rectangle.draw(this.ctx);
+      }
+    }
+
+    window.onload = function () {
+      const canvas = document.getElementById('c');
+      const ctx = canvas.getContext('2d');
+
+      const car = new Rectangle(canvas.width / 2, canvas.height / 2, 100, 50);
+      const controller = new RectangleController(car, canvas, ctx);
+    };
+  </script>
+</body>
+</html>

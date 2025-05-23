@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Azul en Canvas</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #eee;
+    }
+
+    canvas {
+      border: 2px solid black;
+      background-color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>este auto se merece un aprobado</h2>
+  <canvas id="c" width="800" height="600"></canvas>
+
+  <script>
+    class Car {
+      constructor(x, y, width, height, imageSrc) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.angle = 0;
+        this.image = new Image();
+        this.image.src = imageSrc;
+      }
+
+      draw(ctx) {
+  if (!this.image.complete) return;
+  ctx.save();
+  ctx.translate(this.x, this.y);
+  ctx.rotate(this.angle);
+
+  ctx.fillStyle = "white";
+  ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+
+  ctx.drawImage(this.image, -this.width / 2, -this.height / 2, this.width, this.height);
+  ctx.restore();
+}
+
+
+      moveForward(dist) {
+        this.x += Math.cos(this.angle) * dist;
+        this.y += Math.sin(this.angle) * dist;
+      }
+
+      moveBackward(dist) {
+        this.x -= Math.cos(this.angle) * dist;
+        this.y -= Math.sin(this.angle) * dist;
+      }
+
+      rotate(delta) {
+        this.angle += delta;
+      }
+    }
+
+    class CarController {
+      constructor(car, canvas, ctx) {
+        this.car = car;
+        this.canvas = canvas;
+        this.ctx = ctx;
+
+        window.addEventListener('keydown', this.handleKey.bind(this));
+        this.draw();
+      }
+
+      handleKey(event) {
+        const step = 15;
+        const rotation = Math.PI / 32;
+
+        switch (event.key) {
+          case "ArrowUp":
+            this.car.moveForward(step);
+            break;
+          case "ArrowDown":
+            this.car.moveBackward(step);
+            break;
+          case "ArrowLeft":
+            this.car.rotate(-rotation);
+            break;
+          case "ArrowRight":
+            this.car.rotate(rotation);
+            break;
+        }
+
+        this.draw();
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.car.draw(this.ctx);
+      }
+    }
+
+    window.onload = function () {
+      const canvas = document.getElementById('c');
+      const ctx = canvas.getContext('2d');
+
+      const carImagePath = 'CarBlue.png';
+      const car = new Car(canvas.width / 2, canvas.height / 2, 100, 50, carImagePath);
+
+      car.image.onload = () => {
+        new CarController(car, canvas, ctx);
+      };
+    };
+  </script>
+</body>
+</html>
