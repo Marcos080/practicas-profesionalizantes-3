@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./css/button.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Figuras</title>
+  
+</head>
+<body>
+
+  <div class="botonera">
+    <button id="btn-rectangulo">Crear Rectángulo</button>
+    <button id="btn-circulo">Crear Círculo</button>
+     <button id="btn-triangulo">Crear Triangulo</button>
+
+
+    <div class="color-picker-container">
+      <label for="colorPicker">Color:</label>
+      <input type="color" id="colorPicker" value="#ff0000" />
+    </div>
+  </div>
+
+  <div class="contenido">
+    <canvas id="canvas" width="900" height="650"></canvas>
+  </div>
+
+  <div id="lista-figuras">
+    <h2>Figuras creadas:</h2>
+    <ul id="lista"></ul>
+  </div>
+
+  <script type="module">
+    import { ControllerFigure } from "./ControllerFigure.js";
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const colorInput = document.getElementById('colorPicker');
+
+    const controller = new ControllerFigure(ctx);
+
+    document.getElementById('btn-rectangulo').addEventListener('click', () => {
+      const color = colorInput.value;
+      const figura = controller.rectangleData(color);
+      controller.addFigure(figura);
+      controller.selectFigure(controller.figures.length - 1);
+      controller.listFigures();
+    });
+
+    document.getElementById('btn-circulo').addEventListener('click', () => {
+      const color = colorInput.value;
+      const figura = controller.circleData(color);
+      controller.addFigure(figura);
+      controller.selectFigure(controller.figures.length - 1);
+      controller.listFigures();
+    });
+
+    document.getElementById("lista").addEventListener("click", (e) => {
+      if (e.target.tagName === "LI") {
+        const index = parseInt(e.target.dataset.index);
+        controller.selectFigure(index);
+      }
+    });
+  </script>
+</body>
+</html>

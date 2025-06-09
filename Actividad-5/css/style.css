@@ -1,0 +1,70 @@
+canvas {
+  border: 2px solid rgb(21, 21, 24);
+  background: #f0f0f0;
+}
+
+.contenido {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.botonera {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+.color-picker-container {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: sans-serif;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.color-picker-container input[type="color"] {
+  width: 120px;
+  height: 100px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}
+
+#lista-figuras {
+  position: absolute;
+  top: 50px;
+  right: 30px;
+  width: 250px;
+  color: white;
+  font-family: sans-serif;
+  background-color: rgba(0, 0, 0, 0.822);
+  padding: 10px;
+  border-radius: 8px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+#lista-figuras h2 {
+  margin-top: 0;
+}
+
+#lista-figuras ul {
+  padding-left: 20px;
+}
+
+#lista-figuras li {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#lista-figuras li:hover {
+  background-color: #444;
+}
