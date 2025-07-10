@@ -56,6 +56,14 @@
       controller.listFigures();
     });
 
+    document.getElementById('btn-triangulo').addEventListener('click', () => {
+      const color = colorInput.value;
+      const figura = controller.triangleData(color);
+      controller.addFigure(figura);
+      controller.selectFigure(controller.figures.length - 1);
+      controller.listFigures();
+    });
+
     document.getElementById("lista").addEventListener("click", (e) => {
       if (e.target.tagName === "LI") {
         const index = parseInt(e.target.dataset.index);

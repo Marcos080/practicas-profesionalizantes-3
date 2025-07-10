@@ -1,5 +1,6 @@
 import { Rectangle } from "./Rectangle.js";
 import { Circle } from "./Circle.js";
+import { Triangle } from "./Triangle.js";
 
 export class ControllerFigure {
   constructor(ctx) {
@@ -25,6 +26,16 @@ export class ControllerFigure {
     const radius = parseInt(prompt("Ingrese el radio del círculo:"));
     return new Circle(ID, x, y, color, radius);
   }
+
+  triangleData(color) {
+    const ID = prompt("Ingrese el nombre del triangulo:");
+    const x = parseInt(prompt("Ingrese la posición X del triangulo:"));
+    const y = parseInt(prompt("Ingrese la posición Y del triangulo:"));
+    const posX = parseInt(prompt("Ingrese el ancho del triangulo:"));
+    const posY = parseInt(prompt("Ingrese el alto del triangulo:"));
+    return new Triangle(ID, x, y, color, posX, posY);
+  }
+
 
   addFigure(figure) {
     this.figures.push(figure);
